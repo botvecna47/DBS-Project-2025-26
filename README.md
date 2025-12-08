@@ -1,106 +1,105 @@
-# MH26 Services - Your Local Service Marketplace 🛠️🏡
+# MH26 Services - Nanded's Local Marketplace 🛠️🏡
 
 ![Project Status](https://img.shields.io/badge/Status-Active_Development-green)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Tech Stack](https://img.shields.io/badge/Stack-PERN-lightgrey)
 
-Welcome to **MH26 Services**! 👋
-
-We are building a community-driven platform specifically for the people of **Nanded (MH26)**. Our goal is simple: connect local residents with trusted, skilled service providers like plumbers, electricians, carpenters, and more. No more asking around for phone numbers—find help when you need it, right here.
+**MH26 Services** is a platform built for **Nanded (MH26)**. We're connecting local residents with trusted, skilled service providers like plumbers, electricians, and carpenters. No more calling around or asking neighbors for phone numbers—just find who you need, check their profile, and book them.
 
 ---
 
-## 🚀 Why This Project Exists
+## Why we built this
+Finding a good handyman in Nanded shouldn't be a hassle. We wanted to:
+*   **Simplify the Search**: Find the right person for the job in seconds.
+*   **Build Trust**: See real profiles and eventually reviews before you book.
+*   **Help Locals Grow**: Give skilled workers in our city a better way to find customers.
 
-Finding a reliable handyman shouldn't be hard. This project aims to:
-- **Simplify Search**: Find the right person for the job in seconds.
-- **Build Trust**: See profiles, photos, and reviews (coming soon!) before you book.
-- **Empower Locals**: Give local skilled workers a digital platform to showcase their talent and grow their business.
+## What you can do
+*   **For Customers**: Search for services, book appointments, and chat with providers (simulated integration).
+*   **For Providers**: Create a business profile, showcase your work in a gallery, and track your bookings.
 
-## ✨ Key Features
+## Under the Hood
+We built this using a modern stack to make sure it's fast and reliable:
+*   **Frontend**: React & Vite for a snappy experience.
+*   **Styling**: Tailwind CSS for clean looks.
+*   **Backend**: Node.js & Express.
+*   **Database**: MySQL with Prisma ORM.
 
-- **For Customers**:
-    - 🔍 **Easy Search**: Browse services by category (e.g., Plumbing, Electrical).
-    - 📅 **Direct Booking**: Schedule appointments that fit your calendar.
-    - 💬 **WhatsApp Integration**: Chat directly with providers to discuss details (simulated).
-    - 🔒 **Secure Auth**: Safe login and data protection.
+## Running it locally
+If you want to play around with the code, here's how to get it running.
 
-- **For Providers**:
-    - 📋 **Profile Management**: customizable profiles with business details.
-    - 🖼️ **Portfolio Gallery**: Show off your best work with image uploads.
-    - 📈 **Dashboard**: Track your bookings and earnings.
+### You'll need:
+*   Node.js (v16+)
+*   MySQL installed and running locally.
 
-## 🛠️ The Tech Under the Hood
+### Steps:
 
-We believe in using robust, modern tools to build a fast and reliable experience:
-
-| Component | Technology | Why? |
-| :--- | :--- | :--- |
-| **Frontend** | [React](https://reactjs.org/) + [Vite](https://vitejs.dev/) | Blazing fast performance and a smooth user interface. |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | Beautiful, responsive designs without the bloat. |
-| **Backend** | [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/) | Scalable and efficient server-side logic. |
-| **Database** | [PostgreSQL](https://www.postgresql.org/) | Rock-solid data storage. |
-| **ORM** | [Prisma](https://www.prisma.io/) | Type-safe database interactions that prevent bugs. |
-
-## 🏃‍♂️ Getting Started Guide
-
-Want to run this locally? Awesome! Here is how you can get set up in minutes.
-
-### Prerequisites
-- **Node.js** (v16 or higher)
-- **PostgreSQL** installed and running locally.
-
-### Installation Steps
-
-1.  **Clone the Repo**:
+1.  **Clone the repo**:
+    
+    **Option A: Using Command Line (Git)**
+    If you have Git installed, open your terminal and run:
     ```bash
-    git clone https://github.com/botvecna47/MH26-Services.git
-    cd MH26-Services
+    git clone https://github.com/botvecna47/DBS-Project-2025-26.git
+    cd DBS-Project-2025-26
     ```
 
-2.  **Install Dependencies**:
-    We need to install packages for both the server and the client.
-    ```bash
-    # Install backend deps
-    cd server
-    npm install
+    **Option B: No Git installed? (Download ZIP)**
+    1.  Go to the repository page.
+    2.  Click the **<> Code** button (green).
+    3.  Select **Download ZIP**.
+    4.  Extract the ZIP folder to your desktop.
+    5.  Open that folder in VS Code.
 
-    # Install frontend deps
-    cd ../frontend
-    npm install
+2.  **Install everything**:
+    ```bash
+    cd server && npm install
+    cd ../frontend && npm install
     ```
 
-3.  **Configure Environment**:
-    - Go to `server/` and create a `.env` file.
-    - Add your database connection string:
-    ```env
-    DATABASE_URL="postgresql://user:password@localhost:5432/mh26_services?schema=public"
-    JWT_SECRET="super_secret_key"
-    ```
+3.  **Setup the DB**:
+    *   Create a `.env` file in `server/` with your database URL.
+    *   Make sure your database URL allows MySQL connections.
+    *   Run migrations:
+        ```bash
+        npx prisma migrate dev --name init
+        npx prisma db seed
+        ```
 
-4.  **Wake up the Database**:
-    Apply the schema and seed some fake data (so it doesn't look empty!).
+4.  **Start it up**:
     ```bash
-    cd server
-    npx prisma migrate dev --name init
-    npx prisma db seed
-    ```
-
-5.  **Launch! 🚀**:
-    From the root directory:
-    ```bash
+    # From root
     npm run dev
     ```
-    - **Frontend**: Visit `http://localhost:5173`
-    - **Backend API**: Running at `http://localhost:3000`
+    Frontend will be at `http://localhost:5173`, Backend at `http://localhost:3000`.
 
-## 📚 Learn More
+## 🎓 College Demo Setup (Portability Pack)
 
-We have detailed documentation if you want to dive deeper:
-- **[Database Schema](docs/DB.md)** 🗄️: See how our data connects.
-- **[Architecture](docs/ARCHITECTURE.md)** 🏗️: Understand the system design.
-- **[Troubleshooting](docs/TROUBLESHOOTING.md)** 🔧: Stuck? Check here.
-- **[UML Diagra,s](docs/archive/UML_DIAGRAMS.md)** 🔧: Stuck? Check here.
+If you are running this on a new PC and want to restore your previous data:
+
+1.  **Restore Environment**:
+    - Rename `server/.env.demo` to `server/.env`.
+
+2.  **Restore Database**:
+    - Build the project first: `npx prisma generate`
+    - Run the seed command:
+    ```bash
+    cd server
+    npx prisma db seed
+    ```
+    - The script will automatically detect `demo_data.json` and restore your Users, Providers, Services, and Bookings exactly as they were.
+
+### ⚠️ Important Checks for College PC
+To make sure the demo goes smoothly, check these 3 things on the college computer:
+1.  **Node.js Version**: Run `node -v`. It must be **v16 or higher**. (If it's v12 or v14, the app might crash).
+2.  **MySQL is Installed**: The computer must have MySQL server installed. You cannot run this without it.
+    *   *Tip*: If the college MySQL password is different (e.g., empty or 'root'), open `.env` and update the `DATABASE_URL` password section.
+3.  **Internet Access**: You need internet for the **first step** (`npm install`) to download libraries. After that, the app runs offline.
+
+## Documentation
+We have more detailed guides if you're interested:
+*   [Database Reference](docs/reference/DB.md) 🗄️
+*   [Technical Architecture](docs/specs/ARCHITECTURE.md) 🏗️
+*   [Setup & Troubleshooting](docs/guides/TROUBLESHOOTING.md) 🔧
+*   [SQL Implementation Details](docs/reference/SQL_IMPLEMENTATION.md) 💻
 
 ---
 *Made with ❤️ for Nanded.*

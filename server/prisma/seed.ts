@@ -5,6 +5,8 @@
  */
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const BCRYPT_ROUNDS = 12;
 async function hashPassword(password: string): Promise<string> {
@@ -537,6 +539,57 @@ const GALLERY_IMAGES = {} as any; // Kept for type safety if needed, though unus
 
 async function main() {
   console.log('🌱 Starting seed...');
+
+  // CHECK FOR BACKUP RESTORE
+  const backupPath = path.join(__dirname, 'demo_data.json');
+  if (fs.existsSync(backupPath)) {
+    console.log('📦 Found backup file (demo_data.json). Restoring data...');
+    const data = JSON.parse(fs.readFileSync(backupPath, 'utf-8'));
+
+    // 1. Restore Users
+    console.log(`- Restoring ${data.users?.length || 0} users...`);
+    for (const u of data.users || []) {
+      await prisma.user.upsert({
+        where: { id: u.id },
+        update: {},
+        create: { ...u, bookings: undefined, transactions: undefined, savedProviders: undefined, reviews: undefined, auditLogs: undefined, notifications: undefined, reports: undefined, provider: undefined, emailVerificationToken: undefined, passwordResetTokens: undefined, phoneOTPs: undefined, reviewedAppeals: undefined, appeals: undefined },
+      });
+    }
+
+    // 2. Restore Providers
+    console.log(`- Restoring ${data.providers?.length || 0} providers...`);
+    for (const p of data.providers || []) {
+      await prisma.provider.upsert({
+        where: { id: p.id },
+        update: {},
+        create: { ...p, user: undefined, documents: undefined, services: undefined, bookings: undefined, payouts: undefined, reviews: undefined, savedBy: undefined, reports: undefined, appeals: undefined },
+      });
+    }
+
+    // 3. Restore Services
+    console.log(`- Restoring ${data.services?.length || 0} services...`);
+    for (const s of data.services || []) {
+      await prisma.service.upsert({
+        where: { id: s.id },
+        update: {},
+        create: { ...s, provider: undefined, bookings: undefined },
+      });
+    }
+
+    // 4. Restore Bookings
+    console.log(`- Restoring ${data.bookings?.length || 0} bookings...`);
+    for (const b of data.bookings || []) {
+      await prisma.booking.upsert({
+        where: { id: b.id },
+        update: {},
+        create: { ...b, user: undefined, provider: undefined, service: undefined, cancellation: undefined, transaction: undefined, review: undefined },
+      });
+    }
+
+    console.log('✅ Data restored from backup successfully!');
+    return;
+  }
+
   console.log('📝 Credentials will be created:');
   console.log('   Admin: admin@mh26services.com / admin123');
   console.log('   Providers: provider1@example.com to provider35@example.com / provider123');
